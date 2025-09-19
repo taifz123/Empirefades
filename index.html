@@ -5,114 +5,320 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Empire Fades Westfield Liverpool | Premium Barbershop</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary: #f97316;
+            --primary-light: rgba(249, 115, 22, 0.15);
+            --card-border: rgba(148, 163, 184, 0.25);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(circle at top, rgba(30, 64, 175, 0.25), transparent 45%),
+                        radial-gradient(circle at bottom, rgba(15, 118, 110, 0.15), transparent 50%),
+                        #0f172a;
+            color: #e2e8f0;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .nav-blur {
+            backdrop-filter: blur(16px);
+            background: linear-gradient(90deg, rgba(15, 23, 42, 0.95), rgba(15, 15, 25, 0.85));
+            border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+        }
+
         .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('sign.png');
-            background-size: cover;
-            background-position: center;
+            position: relative;
+            min-height: 100vh;
+            background: url('sign.png') center/cover no-repeat;
         }
-        
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(8, 145, 178, 0.5));
         }
-        
+
+        .hero-overlay {
+            position: relative;
+            z-index: 1;
+        }
+
+        .floating-card {
+            background: rgba(15, 23, 42, 0.75);
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(18px);
+        }
+
+        .section-title {
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .accent-bar {
+            width: 3.5rem;
+            height: 4px;
+            border-radius: 9999px;
+            background: linear-gradient(90deg, var(--primary), #38bdf8);
+        }
+
+        .glow-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 1.5rem;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid var(--card-border);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .glow-card::after {
+            content: "";
+            position: absolute;
+            inset: -50% -50% auto;
+            height: 150%;
+            width: 150%;
+            background: radial-gradient(circle, rgba(249, 115, 22, 0.2), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .glow-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 20px 45px -20px rgba(8, 145, 178, 0.4);
+        }
+
+        .glow-card:hover::after {
+            opacity: 1;
+        }
+
         .gallery-item {
-            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border-radius: 1.25rem;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            transition: transform 0.4s ease;
         }
-        
+
+        .gallery-item img {
+            transition: transform 0.6s ease;
+        }
+
         .gallery-item:hover {
-            transform: scale(1.05);
+            transform: translateY(-8px);
         }
-        
-        .barber-card:hover img {
-            transform: scale(1.1);
+
+        .gallery-item:hover img {
+            transform: scale(1.12);
+        }
+
+        .testimonial-card {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 1.5rem;
+            border: 1px solid var(--card-border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-card::before {
+            content: "";
+            position: absolute;
+            top: -30%;
+            right: -40%;
+            width: 60%;
+            height: 140%;
+            background: var(--primary-light);
+            transform: rotate(20deg);
+        }
+
+        .pill {
+            border-radius: 9999px;
+            border: 1px solid rgba(148, 163, 184, 0.3);
+            padding: 0.35rem 1rem;
+            background: rgba(15, 23, 42, 0.55);
+            font-size: 0.85rem;
+            letter-spacing: 0.06em;
+        }
+
+        .contact-card {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 1.5rem;
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(18px);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                background-position: center top;
+            }
         }
     </style>
 </head>
-<body class="font-sans bg-gray-50">
+<body class="bg-slate-950">
     <!-- Navigation -->
-    <nav class="bg-black text-white sticky top-0 z-50 shadow-lg">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center">
-                <img src="logo3.png" alt="Empire Fades Logo" class="h-14">
+    <nav class="nav-blur text-white sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <img src="logo3.png" alt="Empire Fades Logo" class="h-14 drop-shadow-lg">
+                <div>
+                    <p class="text-xs tracking-[0.35em] text-slate-300 uppercase">Westfield Liverpool</p>
+                    <p class="text-lg font-semibold">Empire Fades</p>
+                </div>
             </div>
-            
-            <div class="hidden md:flex space-x-8">
-                <a href="#home" class="hover:text-amber-500 transition">Home</a>
-                <a href="#about" class="hover:text-amber-500 transition">About</a>
-                <a href="#services" class="hover:text-amber-500 transition">Services</a>
-                <a href="#gallery" class="hover:text-amber-500 transition">Gallery</a>
-                <a href="#barbers" class="hover:text-amber-500 transition">Our Barbers</a>
-                <a href="#reviews" class="hover:text-amber-500 transition">Reviews</a>
-                <a href="#contact" class="hover:text-amber-500 transition">Contact</a>
+
+            <div class="hidden lg:flex items-center space-x-8 text-sm font-medium">
+                <a href="#home" class="hover:text-orange-400 transition">Home</a>
+                <a href="#about" class="hover:text-orange-400 transition">About</a>
+                <a href="#services" class="hover:text-orange-400 transition">Services</a>
+                <a href="#gallery" class="hover:text-orange-400 transition">Gallery</a>
+                <a href="#barbers" class="hover:text-orange-400 transition">Our Barbers</a>
+                <a href="#reviews" class="hover:text-orange-400 transition">Reviews</a>
+                <a href="#contact" class="hover:text-orange-400 transition">Contact</a>
             </div>
-            
-            <button class="md:hidden text-white focus:outline-none" id="mobile-menu-button">
+
+            <div class="hidden lg:flex items-center gap-3">
+                <div class="pill text-orange-300">Walk-Ins Welcome</div>
+                <a href="tel:0406713336" class="inline-flex items-center gap-2 bg-orange-500 text-white font-semibold px-5 py-2 rounded-full shadow-lg shadow-orange-500/30 transition hover:-translate-y-0.5">
+                    <i class="fas fa-phone"></i>
+                    0406 713 336
+                </a>
+            </div>
+
+            <button class="lg:hidden text-white focus:outline-none" id="mobile-menu-button">
                 <i class="fas fa-bars text-2xl"></i>
             </button>
         </div>
-        
+
         <!-- Mobile Menu -->
-        <div class="md:hidden hidden bg-black w-full py-4 px-4" id="mobile-menu">
-            <div class="flex flex-col space-y-4">
-                <a href="#home" class="hover:text-amber-500 transition">Home</a>
-                <a href="#about" class="hover:text-amber-500 transition">About</a>
-                <a href="#services" class="hover:text-amber-500 transition">Services</a>
-                <a href="#gallery" class="hover:text-amber-500 transition">Gallery</a>
-                <a href="#barbers" class="hover:text-amber-500 transition">Our Barbers</a>
-                <a href="#reviews" class="hover:text-amber-500 transition">Reviews</a>
-                <a href="#contact" class="hover:text-amber-500 transition">Contact</a>
+        <div class="lg:hidden hidden border-t border-slate-700/60" id="mobile-menu">
+            <div class="px-6 py-6 space-y-4 text-sm">
+                <a href="#home" class="block text-slate-300 hover:text-white transition">Home</a>
+                <a href="#about" class="block text-slate-300 hover:text-white transition">About</a>
+                <a href="#services" class="block text-slate-300 hover:text-white transition">Services</a>
+                <a href="#gallery" class="block text-slate-300 hover:text-white transition">Gallery</a>
+                <a href="#barbers" class="block text-slate-300 hover:text-white transition">Our Barbers</a>
+                <a href="#reviews" class="block text-slate-300 hover:text-white transition">Reviews</a>
+                <a href="#contact" class="block text-slate-300 hover:text-white transition">Contact</a>
+                <a href="tel:0406713336" class="inline-flex items-center gap-2 bg-orange-500 text-white font-semibold px-4 py-2 rounded-full">
+                    <i class="fas fa-phone"></i> Call 0406 713 336
+                </a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="hero min-h-screen flex items-center justify-center text-white relative">
-        <div class="container mx-auto px-4 text-center">
-            <h1 class="text-4xl md:text-6xl font-bold mb-6 animate-pulse">WESTFIELD'S #1 FADE EXPERTS</h1>
-            <p class="text-xl md:text-2xl max-w-2xl mx-auto">Precision cuts for the modern gentleman. Experience the Empire difference.</p>
-        </div>
-        
-        <div class="absolute bottom-10 left-0 right-0 text-center">
-            <a href="#about" class="text-white animate-bounce inline-block">
-                <i class="fas fa-chevron-down text-3xl"></i>
-            </a>
+    <section id="home" class="hero flex items-center justify-center text-white">
+        <div class="hero-overlay container mx-auto px-6 py-32">
+            <div class="max-w-3xl">
+                <div class="inline-flex items-center gap-2 pill text-orange-200/90 mb-6">
+                    <span class="w-2 h-2 rounded-full bg-orange-400 animate-pulse"></span>
+                    Precision Grooming Since 2015
+                </div>
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-semibold leading-tight mb-6">
+                    Westfield's Premier <span class="text-orange-400">Fade Architects</span>
+                </h1>
+                <p class="text-lg md:text-xl text-slate-200/90 leading-relaxed mb-10">
+                    Step into a space crafted for the modern gentleman. From signature skin fades to sculpted beards, our team delivers sharp, confident looks with every visit.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#services" class="inline-flex items-center gap-3 bg-orange-500 hover:bg-orange-400 text-white font-semibold px-6 py-3 rounded-full transition shadow-lg shadow-orange-500/30">
+                        Explore Services
+                        <i class="fas fa-arrow-right text-sm"></i>
+                    </a>
+                    <a href="https://www.instagram.com/empirefadesliverpool" target="_blank" class="inline-flex items-center gap-3 px-6 py-3 rounded-full border border-slate-200/40 text-slate-100 hover:bg-white/10 transition">
+                        <i class="fab fa-instagram text-xl"></i>
+                        Follow Our Craft
+                    </a>
+                </div>
+            </div>
+
+            <div class="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl">
+                <div class="floating-card rounded-2xl px-6 py-6">
+                    <p class="text-sm uppercase tracking-[0.25em] text-slate-400">Skin Fades</p>
+                    <p class="text-3xl font-semibold text-white mt-3">Award Winning</p>
+                    <p class="text-sm text-slate-300 mt-2">Voted #1 fades in Liverpool by our loyal clientele and community.</p>
+                </div>
+                <div class="floating-card rounded-2xl px-6 py-6">
+                    <p class="text-sm uppercase tracking-[0.25em] text-slate-400">Experience</p>
+                    <p class="text-3xl font-semibold text-white mt-3">Decade Strong</p>
+                    <p class="text-sm text-slate-300 mt-2">Crafting confident cuts and welcoming guests since 2015.</p>
+                </div>
+                <div class="floating-card rounded-2xl px-6 py-6">
+                    <p class="text-sm uppercase tracking-[0.25em] text-slate-400">Community</p>
+                    <p class="text-3xl font-semibold text-white mt-3">Liverpool Roots</p>
+                    <p class="text-sm text-slate-300 mt-2">A culture-forward barbershop celebrating our Westfield neighbourhood.</p>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-20 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">OUR STORY</h2>
-                <div class="w-20 h-1 bg-amber-500 mx-auto"></div>
-            </div>
-            
-            <div class="flex flex-col md:flex-row items-center gap-10">
-                <div class="md:w-1/2">
-                    <img src="store.png" alt="Empire Fades Barbershop Interior" class="rounded-lg shadow-xl w-full h-auto">
+    <section id="about" class="py-24">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row gap-12 items-center">
+                <div class="lg:w-5/12">
+                    <div class="section-title text-orange-300 text-sm tracking-[0.4em]">Our Story</div>
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-semibold mt-4 leading-tight">More Than A Barbershop &mdash; It's A Culture</h2>
+                    <div class="accent-bar mt-6"></div>
+                    <p class="text-slate-300 mt-8 leading-relaxed">
+                        Founded in 2015 by master barber James Wilson, Empire Fades has evolved from a single chair in Liverpool to a destination grooming house known for precision fades and modern techniques inspired by the global scene.
+                    </p>
+                    <p class="text-slate-400 mt-4 leading-relaxed">
+                        Every appointment blends craftsmanship with community. From curated playlists to conversations that matter, Empire Fades is where sharp cuts and authentic connection meet.
+                    </p>
+                    <div class="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div class="glow-card text-center px-4 py-6">
+                            <i class="fas fa-cut text-3xl text-orange-400"></i>
+                            <p class="mt-3 font-semibold">Precision Craft</p>
+                            <p class="text-xs text-slate-400 mt-2">Fades, tapers, designs and beard artistry tailored to you.</p>
+                        </div>
+                        <div class="glow-card text-center px-4 py-6">
+                            <i class="fas fa-users text-3xl text-orange-400"></i>
+                            <p class="mt-3 font-semibold">Community Hub</p>
+                            <p class="text-xs text-slate-400 mt-2">An inclusive space for every age, style and culture.</p>
+                        </div>
+                        <div class="glow-card text-center px-4 py-6">
+                            <i class="fas fa-trophy text-3xl text-orange-400"></i>
+                            <p class="mt-3 font-semibold">Recognised Talent</p>
+                            <p class="text-xs text-slate-400 mt-2">International techniques delivered right in Westfield Liverpool.</p>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="md:w-1/2">
-                    <h3 class="text-2xl font-bold mb-6 text-gray-800">More Than Just a Haircut</h3>
-                    <p class="text-gray-600 mb-4">Founded in 2015 by master barber James Wilson, Empire Fades has grown from a small chair in the heart of Liverpool to the city's most sought-after barbershop for precision fades and modern men's grooming.</p>
-                    <p class="text-gray-600 mb-6">What started as a passion for the craft has become a destination for men who appreciate quality, attention to detail, and an atmosphere that blends urban culture with luxury service.</p>
-                    <p class="text-gray-600 mb-8">Our barbers are trained in the latest techniques from London to Los Angeles, bringing world-class skills to the streets of Liverpool. We don't just cut hair - we craft confidence.</p>
-                    
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <div class="bg-gray-100 p-4 rounded-lg text-center">
-                            <i class="fas fa-cut text-amber-500 text-3xl mb-2"></i>
-                            <h4 class="font-bold">Precision Techniques</h4>
+
+                <div class="lg:w-7/12">
+                    <div class="relative">
+                        <div class="absolute -inset-6 bg-gradient-to-br from-orange-500/20 via-sky-500/10 to-transparent rounded-3xl blur-xl"></div>
+                        <img src="store.png" alt="Empire Fades Barbershop Interior" class="relative rounded-3xl border border-slate-700/60 shadow-2xl">
+                    </div>
+                    <div class="floating-card rounded-2xl p-6 mt-8 flex flex-col sm:flex-row gap-6">
+                        <div class="flex-1">
+                            <h3 class="text-lg font-semibold text-orange-300 uppercase tracking-[0.3em]">Timeline</h3>
+                            <p class="text-xl text-white font-semibold mt-2">Empire Fades Journey</p>
                         </div>
-                        <div class="bg-gray-100 p-4 rounded-lg text-center">
-                            <i class="fas fa-users text-amber-500 text-3xl mb-2"></i>
-                            <h4 class="font-bold">Community Vibe</h4>
-                        </div>
-                        <div class="bg-gray-100 p-4 rounded-lg text-center">
-                            <i class="fas fa-trophy text-amber-500 text-3xl mb-2"></i>
-                            <h4 class="font-bold">Award-Winning</h4>
+                        <div class="flex-[2] space-y-4 text-sm text-slate-300">
+                            <div class="flex gap-3">
+                                <span class="pill text-orange-300/90">2015</span>
+                                <p>Doors open inside Westfield Liverpool with a mission to elevate fades in the city.</p>
+                            </div>
+                            <div class="flex gap-3">
+                                <span class="pill text-orange-300/90">2018</span>
+                                <p>Team expands with globally trained barbers bringing new-school artistry.</p>
+                            </div>
+                            <div class="flex gap-3">
+                                <span class="pill text-orange-300/90">2023</span>
+                                <p>Recognised as the go-to grooming destination for modern gentlemen and young kings.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -121,284 +327,341 @@
     </section>
 
     <!-- Services Section -->
-    <section id="services" class="py-20 bg-gray-100">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">OUR SERVICES</h2>
-                <div class="w-20 h-1 bg-amber-500 mx-auto"></div>
-                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Premium grooming services tailored to your individual style. Each service includes a consultation, precision cut, and finishing touches.</p>
+    <section id="services" class="py-24 bg-gradient-to-b from-slate-900/60 via-slate-950 to-slate-900/70">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto">
+                <div class="section-title text-orange-300 text-sm tracking-[0.4em]">Our Services</div>
+                <h2 class="text-3xl md:text-5xl font-semibold mt-4">Premium Grooming Tailored To Your Signature Style</h2>
+                <div class="accent-bar mx-auto mt-6"></div>
+                <p class="text-slate-300 mt-6">Every service begins with a detailed consultation, includes fresh fades or beard sculpting, and finishes with styling tips to keep you looking sharp between visits.</p>
             </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Service Card 1 -->
-                <div class="service-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
-                    <img src="image1.png" alt="Signature Skin Fade" class="w-full h-64 object-cover">
-                    <div class="p-6">
-                        <div class="flex justify-between items-center mb-2">
-                            <h3 class="text-xl font-bold">Signature Skin Fade</h3>
-                            <span class="bg-amber-100 text-amber-800 text-xs font-semibold px-2.5 py-0.5 rounded">Most Popular</span>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10 mt-16">
+                <div class="glow-card overflow-hidden">
+                    <img src="image1.png" alt="Signature Skin Fade" class="w-full h-56 object-cover">
+                    <div class="p-8">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-xl font-semibold text-white">Signature Skin Fade</h3>
+                            <span class="pill bg-orange-400/10 text-orange-300">Most Loved</span>
                         </div>
-                        <p class="text-gray-600">Our most popular service - a seamless blend from skin to length, customized to your preference.</p>
+                        <p class="text-slate-300 mt-4">Flawless blends from skin to length with razor-sharp detailing customised to match your head shape and lifestyle.</p>
                     </div>
                 </div>
-                
-                <!-- Service Card 2 -->
-                <div class="service-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
-                    <img src="image4.png" alt="Royal Beard Treatment" class="w-full h-64 object-cover">
-                    <div class="p-6">
-                        <div class="flex justify-between items-center mb-2">
-                            <h3 class="text-xl font-bold">Royal Beard Treatment</h3>
-                            <span class="bg-purple-100 text-purple-800 text-xs font-semibold px-2.5 py-0.5 rounded">Luxury</span>
+
+                <div class="glow-card overflow-hidden">
+                    <img src="image4.png" alt="Royal Beard Treatment" class="w-full h-56 object-cover">
+                    <div class="p-8">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-xl font-semibold text-white">Royal Beard Treatment</h3>
+                            <span class="pill bg-purple-400/10 text-purple-200">Luxury</span>
                         </div>
-                        <p class="text-gray-600">Precision beard shaping with hot towel treatment, oil and balm application for ultimate softness.</p>
+                        <p class="text-slate-300 mt-4">Beard sculpting with hot towel therapy, conditioning oils and finishing balm for a defined, polished look.</p>
                     </div>
                 </div>
-                
-                <!-- Service Card 3 -->
-                <div class="service-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
-                    <img src="image9.png" alt="Hot Towel Shave" class="w-full h-64 object-cover">
-                    <div class="p-6">
-                        <div class="flex justify-between items-center mb-2">
-                            <h3 class="text-xl font-bold">Hot Towel Shave</h3>
-                            <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">Classic</span>
+
+                <div class="glow-card overflow-hidden">
+                    <img src="image9.png" alt="Hot Towel Shave" class="w-full h-56 object-cover">
+                    <div class="p-8">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-xl font-semibold text-white">Hot Towel Shave</h3>
+                            <span class="pill bg-sky-400/10 text-sky-200">Classic</span>
                         </div>
-                        <p class="text-gray-600">Traditional straight razor shave with pre-shave oil, hot towels and post-shave moisturizer.</p>
+                        <p class="text-slate-300 mt-4">Traditional straight razor ritual with aromatic oils, steamed towels and soothing post-shave hydration.</p>
                     </div>
                 </div>
-                
-                
+            </div>
+
+            <div class="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="floating-card rounded-3xl p-8">
+                    <h3 class="text-lg font-semibold text-orange-300 uppercase tracking-[0.3em]">Signature Touches</h3>
+                    <p class="text-slate-300 mt-4">Every cut includes neck clean-up, product styling, and advice tailored to your hair type and routine.</p>
+                </div>
+                <div class="floating-card rounded-3xl p-8">
+                    <h3 class="text-lg font-semibold text-orange-300 uppercase tracking-[0.3em]">Youth Specialists</h3>
+                    <p class="text-slate-300 mt-4">From first fades to school-ready styles, our barbers make sure young kings leave smiling.</p>
+                </div>
+                <div class="floating-card rounded-3xl p-8">
+                    <h3 class="text-lg font-semibold text-orange-300 uppercase tracking-[0.3em]">Culture &amp; Care</h3>
+                    <p class="text-slate-300 mt-4">An inclusive environment where every client is welcomed, respected, and celebrated.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Barbers Section -->
+    <section id="barbers" class="py-24">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto">
+                <div class="section-title text-orange-300 text-sm tracking-[0.4em]">Our Barbers</div>
+                <h2 class="text-3xl md:text-5xl font-semibold mt-4">Meet The Artists Behind The Blades</h2>
+                <div class="accent-bar mx-auto mt-6"></div>
+                <p class="text-slate-300 mt-6">A handpicked crew of specialists with international experience, each bringing personality, precision, and passion to the chair.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 mt-16">
+                <div class="glow-card p-6">
+                    <div class="overflow-hidden rounded-2xl">
+                        <img src="image10.png" alt="James Wilson" class="w-full h-64 object-cover transition duration-500 hover:scale-105">
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mt-6">James Wilson</h3>
+                    <p class="text-orange-300 text-sm uppercase tracking-[0.35em] mt-2">Founder</p>
+                    <p class="text-slate-400 text-sm mt-4">Master fade specialist and creative lead shaping Empire Fades since day one.</p>
+                </div>
+
+                <div class="glow-card p-6">
+                    <div class="overflow-hidden rounded-2xl">
+                        <img src="image11.png" alt="Sienna Martinez" class="w-full h-64 object-cover transition duration-500 hover:scale-105">
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mt-6">Sienna Martinez</h3>
+                    <p class="text-orange-300 text-sm uppercase tracking-[0.35em] mt-2">Fade Specialist</p>
+                    <p class="text-slate-400 text-sm mt-4">Known for crisp tapers, skin fades and design work inspired by LA street culture.</p>
+                </div>
+
+                <div class="glow-card p-6">
+                    <div class="overflow-hidden rounded-2xl">
+                        <img src="image7.png" alt="Andre Clarke" class="w-full h-64 object-cover transition duration-500 hover:scale-105">
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mt-6">Andre Clarke</h3>
+                    <p class="text-orange-300 text-sm uppercase tracking-[0.35em] mt-2">Beard Architect</p>
+                    <p class="text-slate-400 text-sm mt-4">Transforms beards with sculpting, hot towel treatments and impeccable detail.</p>
+                </div>
+
+                <div class="glow-card p-6">
+                    <div class="overflow-hidden rounded-2xl">
+                        <img src="image8.png" alt="Luca Petrova" class="w-full h-64 object-cover transition duration-500 hover:scale-105">
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mt-6">Luca Petrova</h3>
+                    <p class="text-orange-300 text-sm uppercase tracking-[0.35em] mt-2">Texture Artist</p>
+                    <p class="text-slate-400 text-sm mt-4">Specialises in curls, waves and creative textures with premium product knowledge.</p>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Gallery Section -->
-    <section id="gallery" class="py-20 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">OUR WORK</h2>
-                <div class="w-20 h-1 bg-amber-500 mx-auto"></div>
-                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Browse our portfolio of precision cuts and transformations. Every fade tells a story.</p>
-            </div>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="gallery-item overflow-hidden rounded-lg shadow-md">
-                    <img src="image1.png">
+    <section id="gallery" class="py-24 bg-gradient-to-b from-slate-900/70 via-slate-950 to-slate-900/60">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row gap-10 lg:items-end">
+                <div class="lg:w-1/2">
+                    <div class="section-title text-orange-300 text-sm tracking-[0.4em]">Our Work</div>
+                    <h2 class="text-3xl md:text-5xl font-semibold mt-4">Every Fade Tells A Story</h2>
+                    <div class="accent-bar mt-6"></div>
+                    <p class="text-slate-300 mt-6 leading-relaxed">Swipe through a curated selection of our freshest cuts, textured styles and beard transformations. For daily updates, follow us on Instagram.</p>
+                    <a href="https://www.instagram.com/empirefadesliverpool" target="_blank" class="inline-flex items-center gap-3 bg-orange-500 hover:bg-orange-400 text-white font-semibold px-6 py-3 rounded-full transition mt-8">
+                        <i class="fab fa-instagram text-xl"></i>
+                        @empirefadesliverpool
+                    </a>
                 </div>
-                <div class="gallery-item overflow-hidden rounded-lg shadow-md">
-                    <img src="image2.png">
-                </div>
-                <div class="gallery-item overflow-hidden rounded-lg shadow-md">
-                    <img src="image3.png">
-                </div>
-                <div class="gallery-item overflow-hidden rounded-lg shadow-md">
-                    <img src="image4.png">
-                </div>
-                <div class="gallery-item overflow-hidden rounded-lg shadow-md">
-                    <img src="image5.png">
-                </div>
-                <div class="gallery-item overflow-hidden rounded-lg shadow-md">
-                    <img src="image6.png">
-                </div>
-                <div class="gallery-item overflow-hidden rounded-lg shadow-md">
-                    <img src="image7.png">
-                </div>
-                <div class="gallery-item overflow-hidden rounded-lg shadow-md">
-                    <img src="image8.png">
-                </div>
-                <div class="gallery-item overflow-hidden rounded-lg shadow-md">
-                    <img src="image9.png">
+
+                <div class="lg:w-1/2 grid grid-cols-2 gap-6">
+                    <div class="gallery-item row-span-2">
+                        <img src="image1.png" alt="Fresh Skin Fade" class="w-full h-full object-cover">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="image2.png" alt="Precision Line Up" class="w-full h-full object-cover">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="image3.png" alt="Textured Crop" class="w-full h-full object-cover">
+                    </div>
                 </div>
             </div>
-            
-            <div class="text-center mt-12">
-                <a href="https://www.instagram.com/empirefadesliverpool" target="_blank" class="inline-flex items-center bg-black hover:bg-gray-800 text-white font-bold py-3 px-6 rounded-full transition duration-300">
-                    <i class="fab fa-instagram mr-2"></i> FOLLOW US FOR MORE
-                </a>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-12">
+                <div class="gallery-item">
+                    <img src="image4.png" alt="Beard Treatment" class="w-full h-full object-cover">
+                </div>
+                <div class="gallery-item">
+                    <img src="image5.png" alt="Fade with Design" class="w-full h-full object-cover">
+                </div>
+                <div class="gallery-item">
+                    <img src="image6.png" alt="Wave Fade" class="w-full h-full object-cover">
+                </div>
+                <div class="gallery-item">
+                    <img src="image7.png" alt="Beard and Fade" class="w-full h-full object-cover">
+                </div>
+                <div class="gallery-item">
+                    <img src="image8.png" alt="Textured Style" class="w-full h-full object-cover">
+                </div>
+                <div class="gallery-item">
+                    <img src="image9.png" alt="Hot Towel Shave" class="w-full h-full object-cover">
+                </div>
+                <div class="gallery-item">
+                    <img src="image10.png" alt="Classic Cut" class="w-full h-full object-cover">
+                </div>
+                <div class="gallery-item">
+                    <img src="image11.png" alt="Sharp Fade" class="w-full h-full object-cover">
+                </div>
             </div>
         </div>
     </section>
 
-
     <!-- Reviews Section -->
-    <section id="reviews" class="py-20 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">CLIENT REVIEWS</h2>
-                <div class="w-20 h-1 bg-amber-500 mx-auto"></div>
-                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">What our clients say about their Empire experience</p>
+    <section id="reviews" class="py-24">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto">
+                <div class="section-title text-orange-300 text-sm tracking-[0.4em]">Client Reviews</div>
+                <h2 class="text-3xl md:text-5xl font-semibold mt-4">What Our Clients Are Saying</h2>
+                <div class="accent-bar mx-auto mt-6"></div>
+                <p class="text-slate-300 mt-6">We treat every cut like it matters because it does. Hear from the clients who trust us with their look.</p>
             </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Review 1 -->
-                <div class="bg-gray-100 p-8 rounded-lg">
-                    <div class="flex items-center mb-4">
-                        <div class="text-amber-500 mr-2">
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+                <div class="testimonial-card p-10">
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-3 text-orange-300">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                         </div>
-                        <span class="text-gray-600 text-sm">2 weeks ago</span>
+                        <p class="text-slate-400 text-sm mt-3">2 weeks ago</p>
+                        <p class="text-lg text-slate-100 leading-relaxed mt-6">"Best fade I've ever had! The barber took time to understand exactly what I wanted and delivered perfection. The vibe is unmatched - I'm definitely returning."</p>
                     </div>
-                    <p class="text-gray-700">"Best fade I've ever had! The barber took his time to understand exactly what I wanted and delivered perfection. The atmosphere is great too - will definitely be back."</p>
                 </div>
-                
-                <!-- Review 2 -->
-                <div class="bg-gray-100 p-8 rounded-lg">
-                    <div class="flex items-center mb-4">
-                        <div class="text-amber-500 mr-2">
+                <div class="testimonial-card p-10">
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-3 text-orange-300">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                         </div>
-                        <span class="text-gray-600 text-sm">1 month ago</span>
+                        <p class="text-slate-400 text-sm mt-3">1 month ago</p>
+                        <p class="text-lg text-slate-100 leading-relaxed mt-6">"Transformed my beard from scruffy to sharp. The hot towel treatment was unreal. These barbers know their craft and you can feel the passion."</p>
                     </div>
-                    <p class="text-gray-700">"Transformed my beard from scruffy to sharp. The hot towel treatment was amazing. These guys know their craft and it shows in the results."</p>
                 </div>
-                
-                <!-- Review 3 -->
-                <div class="bg-gray-100 p-8 rounded-lg">
-                    <div class="flex items-center mb-4">
-                        <div class="text-amber-500 mr-2">
+                <div class="testimonial-card p-10">
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-3 text-orange-300">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                         </div>
-                        <span class="text-gray-600 text-sm">3 days ago</span>
+                        <p class="text-slate-400 text-sm mt-3">3 days ago</p>
+                        <p class="text-lg text-slate-100 leading-relaxed mt-6">"Took my son for his first proper haircut and the experience was amazing. Friendly barbers, fresh cuts, and a space my kid can't wait to visit again."</p>
                     </div>
-                    <p class="text-gray-700">"Took my son for his first proper haircut and the experience was fantastic. Great cut, friendly service, and my son can't wait to come back!"</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-20 bg-gray-900 text-white">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">FIND US</h2>
-                <div class="w-20 h-1 bg-amber-500 mx-auto"></div>
-                <p class="text-gray-300 mt-4 max-w-2xl mx-auto">Visit us at our Westfield Liverpool location for a premium grooming experience.</p>
+    <section id="contact" class="py-24 bg-gradient-to-b from-slate-900/70 via-slate-950 to-slate-900/70">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto">
+                <div class="section-title text-orange-300 text-sm tracking-[0.4em]">Find Us</div>
+                <h2 class="text-3xl md:text-5xl font-semibold mt-4">Visit Our Westfield Liverpool Studio</h2>
+                <div class="accent-bar mx-auto mt-6"></div>
+                <p class="text-slate-300 mt-6">We welcome walk-ins and appointments alike. Drop by, call ahead, or connect with us on socials to plan your next visit.</p>
             </div>
-            
-            <div class="flex flex-col lg:flex-row gap-12">
-                <div class="lg:w-1/2">
-                    <h3 class="text-2xl font-bold mb-6">Contact Information</h3>
-                    
-                    <div class="space-y-6">
-                        <div class="flex items-start">
-                            <i class="fas fa-map-marker-alt text-amber-500 mt-1 mr-4"></i>
+
+            <div class="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div class="contact-card p-10">
+                    <h3 class="text-lg font-semibold text-orange-300 uppercase tracking-[0.3em]">Contact Information</h3>
+                    <div class="space-y-6 mt-8 text-slate-200">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-full bg-orange-500/10 flex items-center justify-center text-orange-400 text-xl">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
                             <div>
-                                <h4 class="font-bold">Address</h4>
-                                <p class="text-gray-300">Shop 219 25 Westfield Liverpool<br>George Street<br>Liverpool NSW 2170</p>
+                                <h4 class="font-semibold text-white">Address</h4>
+                                <p class="text-slate-300">Shop 219 25 Westfield Liverpool<br>George Street<br>Liverpool NSW 2170</p>
                             </div>
                         </div>
-                        
-                        <div class="flex items-start">
-                            <i class="fas fa-phone-alt text-amber-500 mt-1 mr-4"></i>
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-full bg-orange-500/10 flex items-center justify-center text-orange-400 text-xl">
+                                <i class="fas fa-phone"></i>
+                            </div>
                             <div>
-                                <h4 class="font-bold">Phone</h4>
-                                <p class="text-gray-300">0406713336</p>
+                                <h4 class="font-semibold text-white">Phone</h4>
+                                <p class="text-slate-300">0406713336</p>
                             </div>
                         </div>
-                        
-                        <div class="flex items-start">
-                            <i class="fas fa-envelope text-amber-500 mt-1 mr-4"></i>
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-full bg-orange-500/10 flex items-center justify-center text-orange-400 text-xl">
+                                <i class="fas fa-envelope"></i>
+                            </div>
                             <div>
-                                <h4 class="font-bold">Email</h4>
-                                <p class="text-gray-300">empirefadesliverpool@gmail.com</p>
+                                <h4 class="font-semibold text-white">Email</h4>
+                                <p class="text-slate-300">empirefadesliverpool@gmail.com</p>
                             </div>
                         </div>
-                        
-                        <div class="flex items-start">
-                            <i class="fas fa-clock text-amber-500 mt-1 mr-4"></i>
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-full bg-orange-500/10 flex items-center justify-center text-orange-400 text-xl">
+                                <i class="fas fa-clock"></i>
+                            </div>
                             <div>
-                                <h4 class="font-bold">Opening Hours</h4>
-                                <p class="text-gray-300">
-                                    Sunday: 9:30 AM - 5:00 PM<br>
-                                    Monday: 9:00 AM - 5:30 PM<br>
-                                    Tuesday: 9:00 AM - 5:30 PM<br>
-                                    Wednesday: 9:00 AM - 5:30 PM<br>
-                                    Thursday: 9:00 AM - 9:00 PM<br>
-                                    Friday: 9:00 AM - 5:30 PM<br>
-                                    Saturday: 9:00 AM - 5:00 PM
-                                </p>
+                                <h4 class="font-semibold text-white">Opening Hours</h4>
+                                <p class="text-slate-300">Sunday: 9:30 AM - 5:00 PM<br>Monday: 9:00 AM - 5:30 PM<br>Tuesday: 9:00 AM - 5:30 PM<br>Wednesday: 9:00 AM - 5:30 PM<br>Thursday: 9:00 AM - 9:00 PM<br>Friday: 9:00 AM - 5:30 PM<br>Saturday: 9:00 AM - 5:00 PM</p>
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="mt-8">
-                        <h4 class="font-bold mb-4">Follow Us</h4>
-                        <div class="flex space-x-4">
-                            <a href="https://www.instagram.com/empirefadesliverpool/" target="_blank" class="bg-gray-700 hover:bg-gray-600 w-10 h-10 rounded-full flex items-center justify-center transition duration-300">
+
+                    <div class="mt-10">
+                        <h4 class="font-semibold text-white">Stay Connected</h4>
+                        <div class="flex gap-4 mt-4">
+                            <a href="https://www.instagram.com/empirefadesliverpool/" target="_blank" class="w-12 h-12 rounded-full border border-slate-500/60 flex items-center justify-center text-xl text-orange-300 hover:bg-orange-500/20 transition">
                                 <i class="fab fa-instagram"></i>
                             </a>
                         </div>
                     </div>
                 </div>
-                
+
+                <div class="floating-card rounded-3xl p-10 flex flex-col gap-8">
+                    <div>
+                        <h3 class="text-lg font-semibold text-orange-300 uppercase tracking-[0.3em]">The Experience</h3>
+                        <p class="text-slate-300 mt-4">Relax in a sleek, modern studio infused with hip-hop culture, premium grooming products, and barbers who treat every cut like art.</p>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-slate-200">
+                        <div class="bg-white/5 rounded-2xl p-6 border border-slate-700/60">
+                            <p class="text-4xl font-semibold text-orange-400">+250</p>
+                            <p class="text-sm text-slate-400 mt-2">Five-star reviews across the community</p>
+                        </div>
+                        <div class="bg-white/5 rounded-2xl p-6 border border-slate-700/60">
+                            <p class="text-4xl font-semibold text-orange-400">Walk-Ins</p>
+                            <p class="text-sm text-slate-400 mt-2">Always welcome &mdash; come through whenever it suits you</p>
+                        </div>
+                    </div>
+                    <div class="bg-gradient-to-r from-orange-500/10 via-transparent to-sky-500/10 rounded-2xl border border-slate-700/60 p-6">
+                        <p class="text-slate-200">Need grooming advice or want to plan for a big event? Swing by the shop or reach out on socials and we'll take care of you.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Map Section -->
-    <div class="h-96 w-full">
+    <section class="h-[28rem] w-full">
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3313.236484125953!2d150.9222132!3d-33.9186615!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b1295795da189e1%3A0x8096a575dcbaea70!2sEmpire%20fades!5e0!3m2!1sen!2sau!4v1724578674306!5m2!1sen!2sau" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-    </div>
+    </section>
 
     <!-- Footer -->
-    <footer class="bg-black text-white py-12">
-        <div class="container mx-auto px-4">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="mb-6 md:mb-0">
-                    <span class="text-amber-500 font-bold text-2xl">EMPIRE FADES</span>
-                    <p class="text-gray-400 mt-2">Westfield Liverpool's Premium Barbershop</p>
-                </div>
-                
-                <div class="flex space-x-6 mb-6 md:mb-0">
-                    <a href="https://www.instagram.com/empirefadesliverpool/" target="_blank" class="text-gray-400 hover:text-amber-500 transition duration-300">
-                        <i class="fab fa-instagram text-xl"></i>
-                    </a>
-                </div>
-                
-                <div class="text-gray-400 text-sm">
-                    © 2023 Empire Fades. All rights reserved.
-                </div>
+    <footer class="bg-black/80 border-t border-slate-800">
+        <div class="container mx-auto px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-8">
+            <div>
+                <p class="text-xs tracking-[0.35em] text-slate-400 uppercase">Empire Fades</p>
+                <p class="text-lg text-white font-semibold mt-2">Westfield Liverpool's Premium Barbershop</p>
             </div>
+            <div class="flex items-center gap-4">
+                <a href="https://www.instagram.com/empirefadesliverpool/" target="_blank" class="text-slate-400 hover:text-orange-400 transition text-xl">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+            <p class="text-slate-500 text-sm">© 2024 Empire Fades. All rights reserved.</p>
         </div>
     </footer>
 
     <script>
-        // Mobile menu toggle
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
-        
+
         mobileMenuButton.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
-        });
-        
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-                
-                // Close mobile menu if open
-                if (!mobileMenu.classList.contains('hidden')) {
-                    mobileMenu.classList.add('hidden');
-                }
-            });
         });
     </script>
 </body>
 </html>
-
-
